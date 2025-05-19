@@ -1,0 +1,2027 @@
+﻿SOFTWARE
+Robot Control System
+
+
+* Control Hub
+  
+
+
+
+* Expansion Hub  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   * Battery
+  
+
+
+
+
+
+   * Gamepad
+
+
+
+
+  
+
+
+
+   * Driver Hub  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The control system for the electrical component of the FTC includes:
+
+
+      * REV Control Hub
+      * REV Expansion Hub
+      * goBILDA Matrix 12V 3000mAH NiMH Battery
+
+
+A variety of wires and connectors:
+
+
+      * 4 pin wires for motor encoders.
+      * Tamiya Connector (FH - MC) and x T30 connectors for battery connections to the expansion hub.
+      * 3 pin JST PH Connector for REV to REV connections.
+      * 4 pin wires for the servo motors.
+      * 4 pin wires for the sensors and connector for the motor input and output.
+
+
+
+
+
+
+
+
+Software For Programming 
+
+
+FTC allows 3 methods of programming - Onbot Java, Android Studio and Blocks. We have tried all of these in the past 5 years.
+
+
+      * Onbot Java: A bare-bones programming tool great for our new team members who are new to programming.
+
+
+      * Blocks: A simple tool for teams who have younger members/have little programming experience or lack of a software mentor.
+
+
+      * Android Studio: The bread and butter of programming, only recommended for teams with advanced programmers or mentors/coaches familiar with Android Studio. As for us, we started out with Blocks for our first TeleOp. Then, we started using Onbot Java which was sufficient for the early stages such as basic TeleOp and autonomous. Once we were familiar with Java programming, we started to transition to Android Studio which has made coding much easier.
+However, we do not recommend it to meet rookie teams unless they have a mentor with experienced/advanced programmers because it is very complicated in the beginning.
+
+
+We have also listed down the differences in a table for the ease of selecting the appropriate language.
+
+
+
+
+	Blocks
+	Onbot Java
+	Android Studio
+	Software
+	No software install necessary, all browser-based.
+	No software install necessary, all browser-based.
+	Software install necessary, not browser-based.
+	Compilation Time
+	Fast program compiling due to connection to Control Hub using Wi-Fi Direct.
+	Fast program compiling due to connection to Control Hub using Wi-Fi Direct.
+	Very slow compiling as Android Studio is a heavy and powerful software. After compiling, the FTC app needs to be used again and again, even for minor changes in the code which takes up a lot of time.
+	Accessibility
+	Need to search for the block of code in different components like DC motors, sensors etc.
+	By writing only two keywords you get the whole Java statement and you just need to select it and typeout the other parameters of the same statement.
+	Only the keywords need to be typed, after which we can select the required statement from the drop-down section.
+	Ease of programming
+	It is a basic programming language which is simple to learn for beginners.
+	To use Onbot Java, one needs to be introduced to Java beforehand to get familiar with the syntax.
+	Difficult to set up and use for beginners.
+	Features
+	Blocks programming gives access to only limited features.
+	Limited advanced features can be accessed.
+	Pretty much all advanced programming features can be accessed using Android Studio.
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IMU : Inertial Measurement Unit
+
+
+IMU is a special sensor inside the REV Expansion Hub, that tells you the orientation of the robot with respect to the starting of the match. Initially, it is initialised to zero when the robot starts and then later on as the robot makes various movements the IMU can be used to find out what the current orientation or angle of the robot with respect to the starting angle.
+This can be used to get the course correction of the robot path.
+s  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Software For Localization 
+
+
+
+
+Road Runner 0.5
+Road Runner is a library widely used in robotics, particularly for autonomous navigation. 
+Road Runner is a motion planning and control library designed specifically for robotics, particularly for wheeled robots used widely in It allows robots to follow complex paths with high precision and reliability.
+In our case after doing all of this our robot was still not following the correction path on the RoadRunner dashboard while doing tuning. If we tried to increase correction by increasing the constants, it caused the robot to be too shaky.
+
+
+Picture of INCORRECT POSITION
+//TODO: add pedro path here
+
+So we switched to Pedro Pathing
+
+
+Pedro Pathing
+
+
+Pedro Pathing is an advanced autonomous navigation system for robots. It helps our robot move more smoothly, adapt to changes in its environment, and execute its tasks more efficiently during the autonomous period. Pedro Pathing achieves this by using Bézier curves, a type of mathematical curve that is flexible and smooth. These curves help the robot create paths that are more natural and continuous compared to traditional straight lines or sharp turns.
+
+
+
+
+How does Pedro Pathing work?
+      1. Path Planning with Bézier Curves:
+      * Instead of plotting straight lines or pre-set paths, Pedro Pathing uses Bézier curves to create fluid paths.
+      * A Bézier curve is defined by control points that the robot calculates dynamically based on its start point, end point, and any obstacles in the way.
+      *       2. Reactive Navigation:
+      * Pedro Pathing is not just about following pre-planned paths. It uses dynamic environment path-planning, and reacts in real-time to changes in the environment, such as unexpected obstacles.
+      * It adjusts the Bézier curve in real- time to avoid collisions or improve efficiency.
+
+
+      3. Localization (Knowing Where the Robot Is):
+      * The system uses odometry (tracking the movement of wheels) and sensor fusion (combining data from multiple sensors, like IMUs and cameras) to know the robot’s exact position.
+      * Accurate localization ensures the robot stays on its planned path.
+
+
+      4. Tuning for Optimization:
+      * Pedro Pathing includes automatic tools to adjust system parameters, such as:
+
+
+      * How sharp or smooth the curves should be.
+      * How fast the robot should travel.
+
+
+      * This makes it easier to optimize the system for specific tasks or robot designs.
+
+
+
+
+
+
+Aspect
+	Road Runner 0.5
+	Pedro Pathing
+	Compatibility
+	Limited to earlier robotics frameworks and APIs.
+	Updated to support more recent frameworks.
+	Path Following
+	Basic functionality, less optimized.
+	Improved algorithms for smoother path following.
+	Debugging Tools
+	More tools for debugging trajectories.
+	Less debugging tools and visualization.
+	Customization
+	Moderate configurability.
+	Customizable based on implementation but requires more effort.
+	Documentation
+	Very well documented with tons of videos and channels
+	Almost no Documentation available
+ Less community support.
+
+
+
+
+
+
+
+
+
+
+	
+
+After some testing and fine-tuning, we found that Pedro Pathing was faster than Road Runner 0.5, but it wasn’t as accurate. We thought we could do better, so we decided to try Road Runner 1.0, which is the updated version of Road runner 0.5.
+Road Runner 1.0
+It in theory does the same thing as Roadrunner 0.5 but is better as it uses ticks of the odometer as its main unit rather than inches for tuning and uses a different much more accurate control loop RAMSETE
+
+
+Aspect
+	Road Runner 0.5 & Pedro Pathing
+	Road Runner 1.0
+	Compatibility
+	Limited to earlier robotics frameworks and APIs.
+	Updated to support more recent frameworks.
+	Path Following
+	Basic functionality, less optimized.
+	Improved algorithms for smoother path following, uses RAMSETE for correction
+	Debugging Tools
+	More tools for debugging trajectories.
+	Less debugging tools and visualization.
+	Customization
+	Moderate configurability.
+	Highly configurable with more user-defined options.
+	Documentation
+	Very well documented with tons of videos and channels
+	Almost no Documentation available
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+Motion Profiling
+Why do we need motion profiling?
+Imagine that we're trying to move our robot along a 1D line to a certain reference position. If we wanted this movement to be precise, we could use a PID controller with our reference and current position. However, there is an issue. Unless the distance to our reference point is very small, our error at the start will be very large, which is going to cause a correspondingly large motor input.
+For most FTC robots, applying maximum power from a standstill position will cause slip, which is undesirable because it results in rough movement, traction loss, and disrupted wheel odometry.
+Limiting Acceleration
+The trivial method to limit acceleration is to cap the output of the PID controller, but this has negative consequences towards system performance. We can do better.
+What if we could directly choose a maximum acceleration? And a maximum deceleration too? (Slip also occurs when we decelerate too quickly!). What if we also wanted to specify a maximum velocity, because we may know that some velocities are too high to control reasonably?
+That's where motion profiling comes in.
+What are motion profiles?
+Motion profiles define a trajectory for our reference over a certain time period. For every time in this period, the motion profile tells what reference we should be at. The trajectory ends at our target reference. Essentially, motion profiles smoothly move our PID's reference point to limit acceleration and velocity. Motion profiling lets us move our robot and its mechanisms more smoothly and consistently.
+To use utilize a motion profile, we set our PID's reference point to whatever the motion profile tells us to, given the current time.
+Trapezoidal motion profiles
+The most common type of motion profile in FTC is the trapezoidal motion profile. It's named that way because it results in a target velocity reference graph that looks like a trapezoid, since it is limiting acceleration and velocity.
+  
+
+It consists of three phrases: acceleration, cruise, and deceleration. In the first phase, the target velocity increases at the maximum acceleration. In the cruise phase, the target velocity doesn't change. Finally, the target velocity decreases by the maximum acceleration, ending at a target velocity of 0.
+Trapezoidal motion profiles are relatively simple, and they are typically sufficient for smooth and precise motion for most mechanisms in FTC.
+
+
+ 
+CONTROL THEORY
+
+
+PID (Proportional-Integral-Derivative)
+It is a widely-used feedback control algorithm designed to regulate position by minimizing the error between a desired setpoint and the actual system state. It is commonly employed in robotics and industrial automation to maintain precision in controlling velocity, position, or other dynamic variables.
+How PID Works:
+PID control combines three components—Proportional, Integral, and Derivative—each addressing different aspects of error correction. By adjusting these terms, the controller computes the necessary output to bring the system closer to the desired state. PID controllers rely on sensor feedback to continuously monitor and adjust the system's performance.
+Error Correction:
+PID continuously adjusts control inputs to minimize the error between the desired and actual state.
+Simple and Flexible:
+The algorithm is straightforward to implement and can be tuned to fit a wide range of systems.
+Proportional Term:
+The proportional term corrects the error based on its magnitude. Larger errors lead to stronger corrections, but this can result in overshooting.
+Integral Term:
+This term accumulates past errors over time, correcting steady-state errors that the proportional term might miss. However, excessive accumulation can lead to instability.
+Derivative Term:
+The derivative term predicts future errors by analyzing the rate of error change, dampening oscillations and improving system stability.
+Real-Time Adjustments:
+PID controllers operate in real time, responding to dynamic changes in the system's environment or state.
+Issues with the Traditional PID Controller
+The traditional PID implementation as seen in previous chapters has a few inherent issues. The two most common ones which we will discuss are that of integral windup and derivative noise amplification.
+Each one of these methods has a relatively basic solution which we will analyze as this chapter progresses.
+Basic problems and solutions
+      * Integral windup
+      * Integral sum cap
+      * Integral sum reset
+      * Stop integral sum when the output is being saturated.
+      * Derivative noise amplification
+      * Filter derivative input
+Integral Windup and Mitigation Methods
+Integral windup is a phenomenon that occurs whenever the integral output saturates our system. Integral windup causes the system to remain traveling in the same direction for some time until the integral sum drops low enough for our system to regain control. Brian Douglas does a fantastic job of explaining the issue of Integral windup on the Matlab youtube channel here.
+
+
+There are a few easy things that can be implemented to help reduce the likely hood of integral windup occurring. One of these is to simply put limits on our Integral sum such as in the following code example:
+Copy
+// sum our integral
+
+
+integralSum = integralSum + (error * timer.seconds());
+
+
+
+
+
+
+// set a limit on our integral sum
+
+
+if (integralSum > integralSumLimit) {
+
+
+   integralSum = integralSumLimit;
+
+
+}
+
+
+if (integralSum < -integralSumLimit) {
+
+
+   integralSum = -integralSumLimit;
+
+
+}
+
+
+The code above effective sets hard limits on how big our integral sum can arrive at. For FTC motor control I recommend making it so that your integralSumLimit * Ki is around ~0.25. This is definitely up to preference and will need to be played around with a bit but it is enough to where it actually makes a difference in most systems but not too much that the system can become unstable.
+Another thing that is good practice to do for many systems is to reset our integral sum whenever the reference changes.
+Integral reset is a technique that needs to be evaluated on a system-by-system basis. It will inherently play better with some systems than others.
+Here is how to implement the integral reset in software:
+Copy
+// reset the integral if the reference is changed.
+
+
+if (reference != lastReference) {
+
+
+   integralSum = 0;
+
+
+}
+For many systems such as a drivetrain, doing this allows you to more easily change directions without waiting for the integral sum to change directions.
+Derivative Noise Mitigation Methods
+If we recall from the chapter on the derivative term of a PID controller we know that increasing the gain of our derivative term can potentially result in unstable oscillations. This is because the nature of the derivative when it attempts to slow down the rate of change of the system can create an unstable feedback loop resulting in oscillations that increase in amplitude. The same thing can happen when our source of data is unreliable and noisy. While we cannot perfectly fix noisy data without a perfect model we can use a series of filters to remove much of the high-frequency noise that appears in our measurements. One such method is known as the low pass filter.
+\
+t
+Low Pass Filter on Synthetic Data
+In the above graph we can see how the low pass filter is able to remove significant amounts of the noise of our measurement but how does it do this?
+The low pass filter takes the following form:
+xc=axp+(1−a)xm
+x
+c
+​
+=ax
+p
+​
++(1−a)x
+m
+​
+Where:
+Xc = current estimate
+Xp = previous estimate
+Xm = current measurement
+a = measurement gain (0 < a < 1)
+This filter is tuned by adjusting the gain a. Small values of a allow each new measurement to have more influence on the estimate than small values of a. This filter works because we are calculating the previous estimate * the percentage + the measurement * the complement of the percentage (1 - a) which results in a whole estimate being created. This process iterates, updating the estimate at each timestep.
+Low Pass Filter Implementation
+The low pass filter can be implemented in software similar to the following example:
+Copy
+a = 0.8; // a can be anything from 0 < a < 1
+
+
+previousEstimate = 0;
+
+
+currentEstimate = 0;
+
+
+
+
+
+
+currentEstimate = (a * previousEstimate) + (1-a) * error
+
+
+previousEstimate = currentEstimate
+The following code if used as the input to our derivative will likely have significantly improved performance with the use of noisy sensors. These noisy sensors may include but are certainly not limited to the Analog Gyroscopes and the Distance sensors. These sensors produce high-frequency noise that has the potential to cause issues if not properly filtered.
+
+
+The end result of our additions to both our Integral and Derivative terms looks something like the following:
+Copy
+/*
+
+
+
+
+
+
+* Proportional Integral Derivative Controller w/ Low pass filter and anti-windup
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+Kp = someValue;
+
+
+Ki = someValue;
+
+
+Kd = someValue;
+
+
+
+
+
+
+reference = someValue;
+
+
+lastReference = reference;
+
+
+integralSum = 0;
+
+
+
+
+
+
+lastError = 0;
+
+
+
+
+
+
+maxIntegralSum = someValue;
+
+
+
+
+
+
+a = 0.8; // a can be anything from 0 < a < 1
+
+
+previousFilterEstimate = 0;
+
+
+currentFilterEstimate = 0;
+
+
+
+
+
+
+// Elapsed timer class from SDK, please use it, it's epic
+
+
+ElapsedTime timer = new ElapsedTime();
+
+
+
+
+
+
+while (setPointIsNotReached) {
+
+
+
+
+
+
+
+
+
+
+   // obtain the encoder position
+
+
+   encoderPosition = armMotor.getPosition();
+
+
+   // calculate the error
+
+
+   error = reference - encoderPosition;
+
+
+
+
+
+
+   errorChange = (error - lastError)
+
+
+
+
+
+
+   // filter out hight frequency noise to increase derivative performance
+
+
+   currentFilterEstimate = (a * previousFilterEstimate) + (1-a) * errorChange;
+
+
+   previousFilterEstimate = currentFilterEstimate;
+
+
+
+
+
+
+   // rate of change of the error
+
+
+   derivative = currentFilterEstimate / timer.seconds();
+
+
+
+
+
+
+   // sum of all error over time
+
+
+   integralSum = integralSum + (error * timer.seconds());
+
+
+
+
+
+
+
+
+
+
+   // max out integral sum
+
+
+   if (integralSum > maxIntegralSum) {
+
+
+       integralSum = maxIntegralSum;
+
+
+   }
+
+
+
+
+
+
+   if (integralSum < -maxIntegralSum) {
+
+
+       integralSum = -maxIntegralSum;
+
+
+   }
+
+
+
+
+
+
+   // reset integral sum upon setpoint changes
+
+
+   if (reference != lastReference) {
+
+
+       integralSum = 0;
+
+
+   }
+
+
+
+
+
+
+   out = (Kp * error) + (Ki * integralSum) + (Kd * derivative);
+
+
+
+
+
+
+   armMotor.setPower(out);
+
+
+
+
+
+
+   lastError = error;
+
+
+
+
+
+
+   lastReference = reference;
+
+
+
+
+
+
+   // reset the timer for next time
+
+
+   timer.reset();
+
+
+
+
+
+
+}
+Now we have fixed any of the issues that can cause issues with your control system. We have fixed the issue of derivative amplifying noise in the system and the issue of integral windup. Now your system will likely be more stable and there is significantly less risk of external disturbances or poor sensor quality disrupting your robot on the field.
+
+
+
+
+RAMSETE 
+(Rapidly-exploring and Accurate Motion Synthesis Engine for Tracking Errors) is a nonlinear feedback controller designed for robots to follow trajectories with high precision. It is commonly used in robotics to enable smooth and accurate motion planning and execution, especially for wheeled robots.
+How RAMSETE Works:
+RAMSETE is built upon differential equations that model the motion of a robot, particularly focusing on correcting errors in position and orientation as it follows a planned trajectory. The controller uses the robot's current state (measured by odometry or sensors) and compares it to the desired state (from the trajectory) to compute control signals for the robot's motors.
+Key Features:
+      1. Trajectory Following:
+RAMSETE ensures the robot follows a precomputed path while correcting deviations in real-time.
+      2. Error Correction:
+It adjusts the robot's velocity and angular velocity based on positional and orientation errors.
+      3. Smooth Motion:
+The controller generates smooth velocity profiles, reducing jerky movements and ensuring stable motion.
+      4. Nonlinear Feedback Control:
+Unlike simple PID controllers, RAMSETE accounts for the nonlinear dynamics of the robot, making it suitable for complex trajectories.
+Advantages:
+         * High Precision: Ensures accurate trajectory tracking, even at high speeds.
+         * Robustness: Handles errors due to slippage, sensor noise, or external disturbances effectively.
+         * Smooth Path Following: Reduces oscillations and overshooting.
+
+
+Feature
+	PID Controller
+	RAMSETE Controller
+	Control Logic
+	Linear feedback based on proportional, integral, and derivative terms.
+	Nonlinear feedback designed for trajectory tracking in differential drive systems.
+	Trajectory Tracking
+	Minimizes error in x, y, and heading separately; struggles with curved paths.
+	Tracks position and heading holistically for smooth and precise trajectory following.
+	Handling Nonlinearity
+	Limited; requires additional tuning for complex scenarios.
+	Specifically designed for nonlinear dynamics, ensuring robust performance.
+	Ease of Implementation
+	Easy to implement; minimal mathematical complexity.
+	More complex; requires precomputed trajectories and understanding of system dynamics.
+	Accuracy
+	Moderate; prone to oscillation or overshooting on aggressive paths.
+	High; smooth and accurate even on complex trajectories.
+	Smoothness
+	May result in jerky movements, especially on curves.
+	Provides smooth and stable motion, reducing oscillations.
+	Tuning
+	Manual tuning of three constants (kP, kI, kD).
+	Minimal tuning required; inherently stable for trajectory tracking.
+	Best Use Cases
+	Straight-line or simple paths; low-speed applications.
+	Complex curves, high-speed or high-precision tasks requiring advanced control.
+	Key Takeaways:
+         * Choose PID: For simple tasks, low complexity, or when you don’t need advanced path tracking.
+         * Choose RAMSETE: For high-speed, high-precision tasks, especially with precomputed trajectories and differential drive robots.
+
+
+PID TUNING PROCESS
+
+
+         * Proportional Correction is the correction which is done to correct the robot if it deviates from the desired path. When the robot drifts away it then increases the power of the respective motors to bring it to the path.
+Proportional Correction = Distance from desired path * multiplier (Kp)
+For the tuning we find the distance of the desired path from the current trajectory and then multiply it with the constant which is kP.
+But since it comes in with a lot of speed it overshoots and then this process repeats resulting in a very rough movement. 
+For this we add Derivative Correction
+
+
+         * Derivative Correction is the correction which is done to eliminate the rough movement which happens during Proportional correction. It finds out how fast the robot is approaching the desired path and then reduces the speed of the motors to ensure it does not overshoot from the path and maintain smooth movement. 
+Derivative Correction = Speed towards desired path * multiplier (Kd)
+  
+
+         * Integral tuning is mainly used to find out the physical error and then smooth out the movement even more but since we did not need it we did not take it into consideration.
+Hence the tuning of all these 3 values comes together as PID tuning.
+
+
+Total Correction = 
+Distance from desired path ✕ multiplier (Kp) + 
+Speed towards desired path ✕ multiplier (Kd)
+
+
+RAMSETE Tuning Process
+________________
+
+
+1. Understanding the Inputs and Parameters
+Road Runner Trajectory Parameters:
+         * Pose Estimation: The robot's real-time x, y, and heading values.
+         * Trajectory Waypoints: The precomputed path the robot must follow.
+         * Velocity and Acceleration Limits: Constraints defined by Road Runner to ensure smooth movement.
+RAMSETE Controller Parameters:
+         * ζ\zetaζ (Damping Ratio): Controls how aggressively the controller corrects errors. Typical values are between 0.7 and 1.0 for stability and smoothness.
+         * β\betaβ (Convergence Rate): Determines how quickly the robot converges to the trajectory. A higher value (e.g., 2.0) results in faster correction.
+________________
+
+
+2. Steps for Tuning
+Step 1: Verify the Trajectory
+         * Use Road Runner's built-in trajectory generation to ensure smooth and feasible paths.
+         * Check if velocity, acceleration, and heading limits are within the robot's capabilities.
+Step 2: Start with Default RAMSETE Parameters
+         * Begin with default values:
+         * ζ=0.8\zeta = 0.8ζ=0.8
+         * β=2.0\beta = 2.0β=2.0
+         * These provide a good balance of smoothness and responsiveness.
+Step 3: Initial Testing
+         * Run the robot on a simple straight-line trajectory.
+         * Observe the following:
+         * Deviations from the path.
+         * Oscillations in movement.
+         * Overcorrection or undercorrection.
+Step 4: Adjust ζ\zetaζ (Damping Ratio)
+         * Increase ζ\zetaζ: If the robot overshoots or oscillates around the path.
+         * Decrease ζ\zetaζ: If the robot corrects too slowly and lags behind the trajectory.
+Step 5: Adjust β\betaβ (Convergence Rate)
+         * Increase β\betaβ: If the robot needs to correct faster and converge quickly to the path.
+         * Decrease β\betaβ: If the corrections are too aggressive, causing instability.
+________________
+
+
+3. Integration with Road Runner Feedback
+Road Runner 1.0 provides odometry data and IMU (if enabled) to calculate the robot's pose. RAMSETE uses this feedback to minimize errors between the desired trajectory and the robot's actual position.
+Implement Feedback Loop:
+         1. Error Calculation:
+Compute the error in xxx, yyy, and heading (θ\thetaθ) between the robot's current pose and the trajectory.
+         2. Velocity Commands:
+Use RAMSETE equations to calculate the required linear (vvv) and angular (ω\omegaω) velocities:
+            * v=vd+k1⋅exv = v_d + k_1 \cdot e_xv=vd​+k1​⋅ex​
+            * ω=ωd+k2⋅ey+k3⋅eθ\omega = \omega_d + k_2 \cdot e_y + k_3 \cdot e_\thetaω=ωd​+k2​⋅ey​+k3​⋅eθ​ Where:
+            * ex,eye_x, e_yex​,ey​ = positional errors
+            * eθe_\thetaeθ​ = heading error
+            * vd,ωdv_d, \omega_dvd​,ωd​ = desired velocity and angular velocity
+            * k1,k2,k3k_1, k_2, k_3k1​,k2​,k3​ = controller gains based on ζ\zetaζ and β\betaβ.
+            3. Apply Velocities:
+Send the calculated velocities to the motors using Road Runner's velocity control.
+________________
+
+
+4. Testing and Iteration
+               * Run the robot on increasingly complex trajectories (e.g., curves, figure-eights).
+               * Analyze deviations using Road Runner's trajectory visualization tools.
+               * Continue fine-tuning ζ\zetaζ and β\betaβ until the robot consistently follows paths smoothly and accurately
+The Kalman Filter
+Why Kalman Filter?
+A Kalman filter is an algorithm that optimally estimates the state of a system by combining a mathematical model of the system and sensor measurements. It is particularly useful when sensor data is noisy or unreliable, enabling more accurate and stable control of systems.
+________________
+
+
+Why Use a Kalman Filter?
+In robotics, sensors can be prone to drift, noise, or inaccuracies. A Kalman filter effectively combines predictions from a system model with real-time sensor data, balancing the strengths and weaknesses of both methods. For instance:
+               1. Modeled Path: A theoretical path (e.g., motion profiles) may not account for all factors, leading to errors.
+               2. Sensor-Based Path: Sensors alone may provide unreliable measurements.
+The Kalman filter mitigates these issues by blending the model's predictions with sensor readings, resulting in a more accurate and reliable estimate.
+________________
+
+
+How the Kalman Filter Works
+1. Prediction Step
+The Kalman filter predicts the state of the system at the next time step:
+xt=xt−1+utx_t = x_{t-1} + u_t
+               * xtx_t: Predicted state at the current time step.
+               * xt−1x_{t-1}: State from the previous time step.
+               * utu_t: Expected change in the state, derived from a model (e.g., change in position from odometry).
+The uncertainty of this prediction also increases, as modeled by:
+pt=pt−1+qp_t = p_{t-1} + q
+               * ptp_t: Predicted variance (uncertainty) of the state.
+               * pt−1p_{t-1}: Variance from the previous time step.
+               * qq: Uncertainty in the model (a tunable parameter).
+________________
+
+
+2. Update Step
+When a new sensor measurement (ztz_t) is received, the Kalman filter updates its prediction:
+xt=xt+Kt(zt−xt)x_t = x_t + K_t (z_t - x_t)
+               * ztz_t: New sensor measurement.
+               * KtK_t: Kalman gain, a value between 0 and 1 that determines how much the new measurement influences the estimate.
+               * zt−xtz_t - x_t: Difference between the measurement and the predicted state.
+The Kalman gain is computed as:
+Kt=ptpt+rK_t = \frac{p_t}{p_t + r}
+               * rr: Variance in the sensor measurement (tunable parameter).
+A high KtK_t (close to 1) indicates more trust in the sensor measurement, while a low KtK_t (close to 0) places more trust in the model.
+Finally, the variance (uncertainty) of the estimate is updated:
+pt=(1−Kt)ptp_t = (1 - K_t) p_t
+This adjustment ensures that the uncertainty decreases after incorporating the new measurement.
+________________
+
+
+Intuition for Variance and Kalman Gain
+               * Variance (ptp_t) represents uncertainty. Higher variance means less confidence in the estimate.
+               * Kalman gain (KtK_t) balances the influence of the prediction (xtx_t) and the sensor (ztz_t). It gives more weight to the source with lower variance.
+
+
+
+
+
+
+
+
+    RRT*
+A Rapidly-Exploring Random Tree Star (RRT*) is an advanced path-planning algorithm designed for efficient navigation in dynamic or complex environments with moving obstacles (eg- other robots). It optimizes paths by minimizing distance while adapting to changing conditions. 
+  
+                                                   
+An example of RRT*
+
+
+  
+                         
+The greater the number of iterations (or branches), the shorter and more optimized the path becomes.
+
+
+How it works-
+               * The algorithm starts by placing a "root" (starting point) and grows a tree of potential paths by randomly sampling points in the environment.
+               * It connects new points to the nearest part of the tree, creating branches.
+               * Before adding a new branch, it checks if the path to the new point collides with any obstacles. If it does, the point is discarded.
+               * Once a new point is added, the algorithm checks if it can connect to other nearby branches in a way that reduces the overall path length or cost.
+               * It "rewires" the tree, replacing longer branches with shorter ones and thus creates the shortest possible path between the starting position and the final position .
+Driver Optimisation
+
+
+               * We have automated various robot movements so that the drivers don”t need to control each aspect manually.
+
+
+               * This saves time, reduces error & improves accuracy during the driver controlled period.
+
+
+               * We used 3 variables in the Teleop optimization
+
+
+               * Vertical Variable
+
+
+When the right stick y+ command is given to the robot system through the gamepad, it moves in the forward direction and it moves in the reverse direction if the direction is y- command is passed. The robot gets power from the controller i.e, the driver gets to control the speed.
+
+
+               * Horizontal Variable
+When the right stick x+ command is given to the robot system through the gamepad, it moves in the right direction (right strafe) and moves in the left direction (left strafe) if the right stick x- command is passed. We can strafe due to the mecanum wheels used in the wheelbase.
+
+
+               * Pivot Variable
+When the trigger command is given to the robot system through the gamepad it rotates in the right and it rotates in the left direction when the left trigger command is passed.
+
+
+                  * This reduces our time of delivering each pair of pixels from the wing to the backdrop.
+
+PICTURE OF ROBOT
+
+
+                  * Automatic sensor based detection
+
+
+We have used the colour sensor v3 from REV that has an inbuilt IR sensor. This detects if the sample inside the grabber is of the correct alliance and if found to be of opposite alliance throws out the sample
+
+
+PICTURE OF INTAKE 
+Code snippet(ill give later)
+
+
+                  * Webcam
+
+
+We use webcam for two things, detecting the Team prop element position in Autonomous and to Align the robot to grab the pixels and to drop them onto the backdrop in Autonomous & Tele OP.
+
+Picture of last years bot with camera highlighted
+
+
+                  * Vision Process
+
+
+Refer to page _____
+
+
+                  * Encoders
+
+
+                  * Encoders are analog sensors which are used in motors to measure the total distance moved by the particular motor.
+
+
+                  * The distance moved is measured in the number of ticks.
+                  * When the drivers press a button the angle and slides mechanism 
+                  * Datalogging
+  
+
+It is a unique method of logging current used by our servos in the intake. We have used it to show how the servo uses a relatively larger amount of energy when it stalls after the sample is picked up. This data-logging charts helps us find the threshold of the current used by a current when it stalls allowing us to stop its rotation and reduce stress on the servo and overall current used 
+******CODE SNIPPET GIVEN LATER****
+
+
+Field Centric Drive
+
+
+
+
+Field-centric drive is a method of controlling a robot's movement where the robot's orientation doesn’t matter to the driver. Instead of moving relative to the robot’s forward direction, the robot moves based on the field's directions: up, down, left, and right. For example, if I push the joystick forward, the robot moves toward the opponent's side of the field, regardless of which way it is facing. This is made possible by an IMU on our robot, which tracks its orientation and adjusts the movements automatically. 
+
+
+How it Works:
+How Does It Work?
+                  1. IMU Integration:
+An Inertial Measurement Unit (IMU) in the Control Hub provides the robot's rotation angle (yaw).
+Initialization ensures the IMU understands the orientation of the hub, e.g.,:
+java
+
+IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+    RevHubOrientationOnRobot.LogoFacingDirection.UP,
+    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+imu.initialize(parameters);
+
+
+The yaw (robot's heading) is read during every loop using:
+java
+double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+
+                  2. Joystick Input Adjustment:
+The joystick inputs for X (strafe) and Y (forward/backward) are adjusted to account for the robot’s rotation.
+To align the joystick inputs with the field, we rotate the input vector by the robot's heading (in the opposite direction):
+java
+
+double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+The formulas are derived from 2D vector rotation equations, which rotate a vector (x,y)(x, y)(x,y) by an angle θ\thetaθ (here, −botHeading-\text{botHeading}−botHeading):
+Vector Rotation Formula
+NewX = X.cosθ-Y.sinθ
+NewY = X.sinθ-Y.cosθ
+
+
+double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+
+
+x * Math.cos(-botHeading): Projects the joystick's X input onto the field's X axis.
+y * Math.sin(-botHeading): Projects the joystick's Y input onto the field's X axis (due to rotation).
+Subtracting adjusts for the robot's heading, ensuring movement is field-centric.
+
+
+double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+
+x * Math.sin(-botHeading): Projects the joystick's X input onto the field's Y axis.
+y * Math.cos(-botHeading): Projects the joystick's Y input onto the field's Y axis.
+Adding combines the effects to compute the field-centric Y direction.
+
+
+
+
+                  3. Zeroing the IMU:
+A button (e.g., gamepad1.options) is bound to reset the robot's yaw. This is useful to counteract drift or recalibrate during gameplay:
+java
+
+if (gamepad1.options) {
+    imu.resetYaw();
+}
+
+
+                  4. Motor Control:
+After calculating the adjusted joystick inputs, the final motor powers are determined using a combination of translation and rotation.
+??? CODE SNIPPET ????
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Odometry
+What is Odometry?
+
+
+Odometry is a localization done to measure the distance moved by the bot from a point and to track the robot’s position on the field. We decided to use RoadRunner which is a library used by many FTC teams for robot movement in the Autonomous Period.
+  
+
+
+
+
+
+
+
+
+
+
+
+                  1. Drive Encoder Odometry
+
+
+First, we used the inbuilt drive encoders inside the motor. This is very easy for us to get started on. We have used these drive encoders in the past for 5 seasons and they work okay in most use cases but they give a lot of inaccuracy while we are running the robot at high speed, which is needed to score more points in the autonomous period.
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To reduce this we created an algorithm that reduces the momentum of our robot. Normally the setPower(); function directly sets the speed of the robot. But we developed an algorithm called ACDC -
+This accelerates the robot at the start and decelerates at the end.
+Momentum = Mass x Velocity 
+So ACDC reduces the momentum of the robot. This improved the accuracy of our robot by a lot.
+
+
+
+
+
+
+
+
+
+
+
+
+Drive Encoder Odometry:
+	Parameters
+	Score
+	Weight
+	Weighted score
+	Accuracy
+	4
+	10
+	40
+	Software simplicity
+	7
+	2
+	14
+	Hardware simplicity
+	9
+	3
+	27
+	Total
+	
+
+	
+
+	81
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*ACDC Pic*
+
+
+Advantages
+	Disadvantages
+	                  1. It is easy to implement
+	                  2. Accuracy is low
+	  
+
+What are Odometers?
+
+
+Odometers are basically external encoders attached to the sides of the robot. The odometers are freely movable but rubber tension is connected so that it can adjust for irregular parts on the mat.
+Two-wheel odometry has two encoders  - one on the left or the right and the other one on the back or front.
+
+
+
+
+                  * Although in the FTC community, dead wheels and odometry are often used synonymously, they are very different things. 
+
+
+                  * Odometry refers to the use of sensors to determine the robot’s position.
+
+
+                  * Dead wheels (sometimes referred to as odometry wheels or odometry pods) are powered-up omni-wheels not connected to any motor.
+
+
+                  * These wheels have rotary encoders to track distance travelled. This data is fed through a kinematic equation and integrated to calculate the relative position of the robot on the field.
+                  *                   * The advantage of using dead wheels to that over drive wheel odometry is that dead wheels experience very little slippage and inertia compared to mecanum wheels.
+  
+
+                  * This improves the accuracy significantly when using a mecanum drive, especially in instances of high acceleration.
+
+
+
+
+We use the roadrunner library to track our robot's position. It uses trigonometry to track the x,y, and heading of the robot in real time.
+This year we have done odometry using the goBilda odometry pods. 
+
+
+
+
+
+
+                  1. Two-Wheel Odometry + IMU - 
+
+
+                  * Two-wheel odometry has two encoders  - one at the side and the other at the back. These help us track the x and the y positions while the heading is tracked by the IMU. 
+
+
+                  * The x and the y were perfectly calibrated and the IMU is supposed to give the exact angle of the robot. 
+
+
+Placement - 
+
+
+The placement for 2-wheel odometry is one odometer on the X-axis and the other on the Y-axis.
+We have mounted our X-axis odometer on the left side of the bot and the Y-axis odometer in the centre of the bot on the backside.
+
+
+Two-Wheel Odometry + IMU
+	Parameters
+	Score
+	Weight
+	Weighted score
+	Accuracy
+	7
+	10
+	70
+	Hardware simplicity
+	6
+	3
+	18
+	Software Simplicity
+	7
+	2
+	14
+	Total
+	
+
+	
+
+	102
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+Problems with Two-wheel odometry -
+
+
+However, after trying out the 2-wheel setup, we found multiple problems - 
+                  * In two-wheel odometry, while testing we realised that the heading of the robot started to deviate from the target position. It was unable to correct the error and was unreliable. 
+                  * We found our IMU was giving errors without any movement which made us switch to three-wheel odometry
+                  * The IMU in the control hub was not as accurate as another odometer which is accurate to 1/1000000 of a inch.
+
+
+Advantages
+	Disadvantages
+	                  * Inexpensive as only 2 odometers are used
+                  * Uses inbuilt IMU
+	                  * Expensive as 3 odometers are required
+                  * It uses the third wheel for heading, meaning if our wheels encounter an obstacle. It may ruin our Autonomous
+	
+
+                  1. Three-wheel odometry
+
+
+We then switched our odometry with a 3-wheel setup:
+                  * The three-wheel setup is known to be accurate and reliable and does not use the IMU which allows us to be more accurate
+                  * The IMU is slower than odometers in reporting values which slows down the process in two-wheel setups.
+
+
+Placement - 
+The left and right odometers track the vertical movement and the back odometer tracks the sideways movement. The turning is tracked by the difference measured in the values of the left and right odometers.
+
+
+
+
+  
+
+
+
+
+
+
+
+Three Wheel Odometry
+	Parameters
+	Score
+	Weight
+	Weighted Score
+	Accuracy
+	9
+	10
+	90
+	Hardware Simplicity
+	8
+	3
+	24
+	Software Simplicity
+	7
+	2
+	14
+	Total
+	
+
+	
+
+	128
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Advantages
+	Disadvantages
+	                  1. Hardware flexibility
+                  2. IMU not required
+	                  2. Accuracy is low.
+                  3. It requires high maintenance.
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Three-Wheel Odometry Calibration
+
+
+                  1. Distance Calibration of the odometers
+
+
+This is to calibrate positions for the x and y axis.
+We moved the robot 100 inches ahead and compared the value with what the robot thought it traveled. We divided 100 inches (actual distance) by x (calculated distance). This value tells us the number of inches (actual distance) to be covered to have the robot display it as one inch. We did this calibration for forward as well as strafe movement.
+
+
+CODE SNIPPET
+Picture of robot on field with measuring tape
+
+
+
+
+
+
+                  2. Coordinates of the odometers
+
+
+We have set the odometer coordinates based on the centre of rotation and tweaked it a little after some testing.
+CODE SNIPPET
+
+
+
+
+                  3. PID Calibration of motors(Roadrunner 0.5)
+
+
+The weight distribution of the robot is not balanced perfectly. It is close to perfect, but not fully balanced. So we had to calibrate the kV,kA,kStatic according to our robot.
+  
+
+                  4. PID Correction calibration(Roadrunner 0.5)
+
+
+Correction is basically a feedback loop that runs recurrently to check the position of the robot.
+This is required as the motors do not move the robot in a straight line due to friction and motor errors. Also if an obstruction comes, the feedback loop will correct the robot’s position and bring it back to the correct position.
+
+
+These constants determine the amount of correction -
+  
+
+
+
+
+
+Game Strategy with Odometry Trajectories
+
+
+A trajectory is basically path programming of the robot where we instruct the robot to move to a particular position. There are many trajectories that can be used to reach the desired place, but a lot of them are time-consuming. We analysed each path carefully and then chose the final one.
+There can four possible robot starting positions - 
+Blue Alliance - A2 & A4
+Red Alliance - F2 & F4
+  
+
+
+
+Blue Alliance -
+                  1. Starting Position A4 (Secondary Starting Position)-  
+  
+
+Path:-
+                  1. The robot first moves towards the randomized spike mark after detecting it using OpenCV and a camera and delivers the pixel on the spike mark.
+                  2. Then it turns 90 degrees and moves forward towards the backdrop, delivering the pixel.
+                  3. It then strafes towards the right side to park.
+                  4. It finally moves forward to park and finish the Autonomous period.
+
+
+
+
+
+
+
+
+Point Summary - 
+Purple Pixel on Spike mark 
+	20 points
+	Yellow Pixel on Backdrop 
+	20 points
+	Pixels placed on backdrop earn points when the period ends.
+	5 points
+	Parking
+	5 points
+	The same pixel on the backdrop earns points again at the end of the match
+	3 points 
+	
+
+This gives us a total of 53 points.
+
+
+2. Starting Position A2 (Primary Starting Position) -  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Path:-
+                  1. The robot first moves towards the randomized spike mark after detecting it using OpenCV and a camera and delivers the pixel on the spike mark.
+                  2. Then it turns 90 degrees and moves forward towards the pixel stack and picks up a white pixel.
+                  3. It then turns 180 degrees and then moves straight towards the backdrop and places a pixel.
+                  4. It strafes towards the right to park.
+                  5. It then finally moves forward to park and finish the Autonomous period.
+
+
+
+
+Point Summary - 
+
+
+Purple Pixel on Spike mark 
+	20 points
+	Yellow Pixel on Backdrop 
+	20 points
+	White Pixel on Backdrop
+	10 points
+	Pixels placed on backdrop earn points when the period ends.
+	10 points
+	Parking
+	5 point
+	The same pixel on the backdrop earns points again at the end of the match
+	3 points 
+	
+
+This earns us a total of 68 points.
+
+
+
+
+
+
+
+
+
+
+
+
+Red Alliance -
+                  1. Starting Position F4 (Secondary Starting Position) - 
+  
+
+
+
+
+
+Path:-
+                  1. The robot first moves towards the randomised spike mark after detecting it using OpenCV and a camera and delivers the pixel on the spike mark.
+                  2. Then it turns 90 degrees and moves forward towards the backdrop and delivers the pixel.
+                  3. It then strafes towards the right side to park.
+                  4. It finally moves forward to park and finish the Autonomous period.
+
+
+Point Summary:-
+
+
+Purple Pixel on Spike mark 
+	20 points
+	Yellow Pixel on Backdrop 
+	20 points
+	Pixels placed on backdrop earn points when the period ends.
+	5 points
+	Parking
+	5 point
+	The same pixel on the backdrop earns points again at the end of the match
+	3 points 
+	
+
+This strategy earns us 53 points.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Starting Position F2 (Primary Starting Position)- 
+  
+
+
+
+Path:-
+                  1. The robot first moves towards the randomized spike mark after detecting it using OpenCV and a camera and delivers the pixel on the spike mark.
+                  2. Then it turns 90 degrees and moves forward towards the pixel stack and picks up a white pixel.
+                  3. It then turns 180 degrees and then moves straight towards the backdrop and places a pixel.
+                  4. It strafes towards the left to park.
+                  5. It then finally moves forward to park and finish the Autonomous period.
+
+
+
+
+Point Summary:-
+
+
+Purple Pixel on Spike mark 
+	20 points
+	Yellow Pixel on Backdrop 
+	20 points
+	White Pixel on Backdrop
+	10 points
+	Pixels placed on backdrop earn points when the period ends.
+	10 points
+	Parking
+	5 point
+	The same pixel on the backdrop earns points again at the end of the match
+	3 points 
+	
+
+This strategy earns 68 points.
+
+
+TeleOp Strategy -
+The main task is to pick up pixels from the Wing and deliver it on the Backdrop.  
+We will be delivering as many pixels as possible in the 1.5 minute duration.
+
+
+                  1. We will first go to F5, then to F2 and pick up 2 pixels from the Wing.
+                  2. Then go diagonal to B5 to deliver the pixels.
+                  3. Approximated time to complete this whole cycle once is 10 seconds.
+                  4. 2 * 9 pixels = 18 pixels
+                  5. 18 pixels = 90 points
+                  6. Expected mosaics = 3 = 30 points
+                  7. Expected Set Lines to cross = 1 = 10 points
+Total points = 130 points
+
+
+
+
+
+
+Endgame Strategy -
+
+
+                  1. First, we will launch the drone from B4 or C4 = 30 points
+                  2. Then, we will complete one cycle and deliver 2 pixels = 5 + 5 points
+                  3. Finally, the robot will be suspended in the rigging = 20 points
+Total points = 60 points
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Total Match Points = 56 + 130 + 60 points
+                                 = 246 points
+
+
+
+
+
+
+
+
+
+
+
+
+Vision Processing
+
+
+We have made a custom detection using the OpenCV library. We went through many iterations like Vuforia and OpenCV before deciding on using Tensorflow. Vuforia is an image processing software and Tensorflow is a machine learning model. 
+
+
+Disadvantages of Vuforia and OpenCV:
+                  * In different lighting conditions the colours seen by the softwares vary greatly
+                  * Slight changes in camera angle or position give inaccurate and inconsistent results
+                  * The noise of the image obtained by camera is still present and cannot be removed
+
+
+Advantages:
+                  * Takes less time to train or build
+                  * The implementation is easier than TensorFlow
+
+
+Vuforia & OpenCV
+	Parameters
+	Score
+	Weight
+	Weighted score
+	Accuracy
+	4
+	10
+	40
+	Speed(while training)
+	8
+	4
+	32
+	Speed(while detecting)
+	4
+	8
+	32
+	Reliability
+	5
+	9
+	45
+	Total
+	
+
+	
+
+	149
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OpenCV
+
+
+This is a library that allows us to process the frame that comes from the camera. It has various methods that help us reduce the noise in the image (Gaussian blur), that help us threshold the image. There are also methods to differentiate between objects of different colours in HSV format and create contours of same colours. 
+
+
+Gaussian Blur
+
+
+This is a feature exclusive to OpenCV and is very helpful in doing randomisation as well as alignment. It reduces the noise in the image and is one of the famous industrial ways of removing noise. It helps us to differentiate distinctly between different colours.
+
+
+HSV
+
+
+This helps us take into account all types of lighting conditions, be it natural light, artificial light and even minimal lighting. It has three parts - 
+
+
+1. Hue:
+
+
+Hue means the shade of the colour. We give it a range and if any object comes in between the range of shades, it goes on to check the next parameter. This is a very finely tuned value for our Team Prop detection. 
+
+
+2. Saturation:
+
+
+Saturation basically means intensity of the colour. This is also very finely tuned to our Team Prop’s colour intensity (blue or red). 
+
+
+3. Value:
+
+
+Value means the brightness of the colour we need to detect. It is open-ended and has a wide range, as any intensity of light can be shined on the team prop and the robot still retains the ability to detect it consistently. This is the parameter where the magic of OpenCV happens as it has a huge range for all types of lighting conditions.
+  
+
+Contours
+
+
+In the actual match there could be some niche objects that look very similar in terms of colour  to our team prop. To avoid confusion we use Contours. In contours, it identifies all the pixels that are inside the HSV range and if there is a high density of pixels in one place, it groups them as one contour. Hence even if there are some objects that have similar colour in the cropped frame, they would not have a lot of area of the same colour and so they are not detected. Since the colour of the Team Prop is similar to the colour of the tape marking, OpenCV detects which rectangle the largest contour is in and gives us an integer value corresponding to the strip we have to place the purple pixel on.
+
+
+
+
+Camera for Alignment
+
+
+Before the match we need to align the robot to a specific position as all of our autonomous programs depend on the starting position. To fix this variability we run a program through which we can see our live camera stream and on that image we have drawn virtual boxes that should match the position of the tape marking. Through this the relative distance between the robot and tape marking is constant.
+  
+
+Optimisation Through Vision
+
+
+Navigation images
+
+
+We are one of the few teams that are using the navigation images. We have made a custom program with Vuforia integrated to get the x and y distance from the image. This helps us in autonomous as well as in TeleOp as it helps us to align the robot to the pixel stack and the backdrop which is a crucial part of our autonomous. We give the obtained values to our odometers and RoadRunner and use a feedback loop to track their position. This also fixes any error in odometry.
+
+
+
+
+  
+  
+
+
+
+
+
+Drone
+
+
+For launching the drone we have a very specific position on the field and if that position is incorrect we risk losing many scoring points in Endgame. To fix this issue we have developed a custom algorithm using OpenCV and Triangulation. It detects the stage door as a reference point and, knowing the length of the stage door, it is able to calculate the distance from it. With the press of one button the drivers are able to get the robot to the launching position automatically.
+
+
+  
+
+
+
+Pixel Detection
+
+
+In the match there is a lot of chaos and the human player cannot tell the drivers everything. Also, for our drivers the front of the robot while picking up the pixel is out of sight. The problem here is that if our intake fails to grab the pixels, there is no way for the drivers to know that. 
+Now using the camera we are able to detect whether the pixels have been picked up or not. The camera analyses the frame and if it can see two pixels in the grabber, the light on the robot which can be seen by the drivers is turned on thus notifying the drivers.
+OpenCV
+	Parameters
+	Score
+	Weight
+	Weighted score
+	Accuracy
+	8
+	10
+	80
+	Speed(while training)
+	5
+	4
+	20
+	Speed(while detecting)
+	7
+	8
+	56
+	Reliability
+	8
+	9
+	72
+	Total
+	
+
+	
+
+	228
+	                                                             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+D
